@@ -20,6 +20,7 @@ public class Server {
     private ObjectOutputStream objectOutputStream;
     private final ArrayList<EventHandler> handlers;
 
+
     public Server(int port) throws IOException {
         this.server = new ServerSocket(port, 1);
         this.handlers = new ArrayList<EventHandler>();
@@ -93,9 +94,10 @@ public class Server {
     public void handleLoadCourses(String arg) {
 
         ArrayList<Course> listCourse = new ArrayList<>();
-        ArrayList<Course> listCoursSession = new ArrayList<>();
+        ArrayList<Course> listCoursSessionDemande = new ArrayList<>();
         try {
             String line;
+            int temp=0;
             BufferedReader br = new BufferedReader(new FileReader( new File("src/main/java/server/data/cours.txt")));
             System.out.println("lecture du fichier cours");
             while( (line= br.readLine())!= null){
@@ -105,12 +107,17 @@ public class Server {
                 System.out.println("cours :"+course.getName());
                 listCourse.add(course);
                 if(course.getSession().equals(arg)){
-                    listCoursSession.add(course);
+                    listCoursSessionDemande.add(course);
+                    temp++;
 
                 }
-            }for(int i=0; i < listCoursSession.size(); i++){
-                System.out.println("envoie cours :"+listCoursSession.get(i).getName());
-                objectOutputStream.writeObject(listCoursSession.get(i));
+
+            }
+
+            for(int i=0; i < temp; i++){
+                System.out.println("envoie cours :"+listCoursSessionDemande.get(i).getName());
+                listCoursSessionDemande.get(i).setNombreDeCoursnombreDeCours(temp);
+                objectOutputStream.writeObject(listCoursSessionDemande.get(i));
             }
             objectOutputStream.flush();
 
