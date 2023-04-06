@@ -142,10 +142,10 @@ public class Server {
             enregistrement = rf.getCourse().getSession() +"\t"+ rf.getCourse().getCode() +"\t"+ rf.getMatricule() +"\t"+ rf.getPrenom() +"\t"+ rf.getNom()+"\t"+rf.getEmail()+"\n";
             BufferedWriter bw = new BufferedWriter(new FileWriter( new File("src/main/java/server/data/inscription.txt")));
             bw.write(enregistrement);
-            OutputStreamWriter osw = new OutputStreamWriter(client.getOutputStream());
-            osw.write("inscription effectué avec succès");
+
+            objectOutputStream.writeObject("inscription effectué avec succès");
             bw.close();
-            osw.close();
+            objectOutputStream.close();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
