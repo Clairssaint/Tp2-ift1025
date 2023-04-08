@@ -15,8 +15,10 @@ public class Client_simple implements Serializable {
     static int temp = 0;
     static ArrayList<Course> listDesCoursDeLaSession = new ArrayList<>();
     static Course coursAAjouter;
-    static ObjectOutputStream os;
-    static ObjectInputStream ois;
+    static RegistrationForm registrationForm;
+    static ObjectOutputStream os,oos;
+    static ObjectInputStream ois, is;
+    static String enregistrement;
     public static void main(String[] args) {
         String line;
 
@@ -35,17 +37,22 @@ public class Client_simple implements Serializable {
                     case "1":
                         os.writeObject("CHARGER Automne");
                         os.flush();
+
                         chargerCours(client, "automne");
+                        break;
                     case "2":
                         os.writeObject("CHARGER Hiver");
                         os.flush();
                         chargerCours(client, "hiver");
-                    case"3":
+                        break;
+                    case "3":
                         os.writeObject("CHARGER Ete");
                         os.flush();
                         chargerCours(client, "ete");
-                    default:
+                        break;
+                    default :
                         System.out.println("commande inconnue");
+                        break;
                 }
 
 
@@ -65,7 +72,7 @@ public class Client_simple implements Serializable {
 
 
     public static void chargerCours(Socket client, String session) {
-        String line;
+        String line, confirmation;
         Course cours;
         try {
              ois = new ObjectInputStream(client.getInputStream());
@@ -89,8 +96,19 @@ public class Client_simple implements Serializable {
                         System.out.println("choix d'une autre session");
                         break;
                     case "2":
-                        os.writeObject("INSCRIRE session");
-                        inscriptionAuCours(client);
+                        Socket cl = new Socket("127.0.0.1", 1337);
+                        oos = new ObjectOutputStream(cl.getOutputStream());
+                        is = new ObjectInputStream(cl.getInputStream());
+
+                        inscriptionAuCours();
+                        oos.writeObject("INSCRIRE "  );
+                        oos.writeObject(enregistrement);
+                        oos.flush();
+                        //System.out.println(enregistrement);
+                        confirmation = (String) is.readObject();
+                        System.out.println(confirmation);
+                        is.close();
+                        break;
                     default:
                         System.out.println("commande inconnue");
                 }
@@ -102,34 +120,31 @@ public class Client_simple implements Serializable {
             throw new RuntimeException(e);
         }
     }
-    public static void inscriptionAuCours(Socket client) {
-        String confirmation;
-        try {
+    public static void inscriptionAuCours(){
 
-            String prenom, nom, email, matricule, codeCours;
-            System.out.print("Veuillez saisir votre prenom: ");
-            prenom = scan.nextLine();
-            System.out.print("Veuillez saisir votre nom: ");
-            nom = scan.nextLine();
-            System.out.print("Veuillez saisir votre email: ");
-            email = scan.nextLine();
-            System.out.print("Veuillez saisir votre matricule: ");
-            matricule = scan.nextLine();
-            System.out.print("Veuillez saisir le code du cours: ");
-            codeCours = scan.nextLine();
-            for (int i = 0; i < temp; i++) {
-                if (codeCours.equals(listDesCoursDeLaSession.get(i).getCode())) {
-                    coursAAjouter = listDesCoursDeLaSession.get(i);
-                }
+        String prenom, nom, email, matricule, codeCours;
+        System.out.print("Veuillez saisir votre prenom: ");
+        prenom = scan.nextLine();
+        System.out.print("Veuillez saisir votre nom: ");
+        nom = scan.nextLine();
+        System.out.print("Veuillez saisir votre email: ");
+        email = scan.nextLine();
+        System.out.print("Veuillez saisir votre matricule: ");
+        matricule = scan.nextLine();
+        System.out.print("Veuillez saisir le code du cours: ");
+        codeCours = scan.nextLine();
+        for (int i = 0; i < temp; i++) {
+            if (codeCours.equals(listDesCoursDeLaSession.get(i).getCode())) {
+                coursAAjouter = listDesCoursDeLaSession.get(i);
             }
-            RegistrationForm registrationForm = new RegistrationForm(prenom, nom, email, matricule, coursAAjouter);
-            os.writeObject(registrationForm);
-            confirmation = ois.readLine();
-            System.out.println(confirmation);
-            os.close();
-        }catch (IOException oi){
-            System.out.println("erreur lors de L'envoie de l'object");
         }
+        registrationForm = new RegistrationForm(prenom, nom, email, matricule, coursAAjouter);
+        enregistrement = registrationForm.getCourse().getSession() +"\t"+ registrationForm.getCourse().getCode() +"\t"+ registrationForm.getMatricule() +"\t"+ registrationForm.getPrenom() +"\t"+ registrationForm.getNom()+"\t"+registrationForm.getEmail();
+        /**try {
+            os.writeObject(enregistrement);
+        }catch(IOException oe){
+            System.out.println("erreur lors de l'envoi de l'object");
+        }*/
     }
 
 }

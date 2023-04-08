@@ -28,6 +28,7 @@ public class Server {
     }
 
     public void addEventHandler(EventHandler h) {
+
         this.handlers.add(h);
     }
 
@@ -78,6 +79,7 @@ public class Server {
 
     public void handleEvents(String cmd, String arg) {
         if (cmd.equals(REGISTER_COMMAND)) {
+            System.out.println("recu commande");
             handleRegistration();
         } else if (cmd.equals(LOAD_COMMAND)) {
             handleLoadCourses(arg);
@@ -134,24 +136,20 @@ public class Server {
      et renvoyer un message de confirmation au client.
      La méthode gére les exceptions si une erreur se produit lors de la lecture de l'objet, l'écriture dans un fichier ou dans le flux de sortie.
      */
-    public void handleRegistration() {
-
-        String prenom, nom, email, matricule, enregistrement;
-        try {
-            RegistrationForm rf = (RegistrationForm) objectInputStream.readObject();
-            enregistrement = rf.getCourse().getSession() +"\t"+ rf.getCourse().getCode() +"\t"+ rf.getMatricule() +"\t"+ rf.getPrenom() +"\t"+ rf.getNom()+"\t"+rf.getEmail()+"\n";
-            BufferedWriter bw = new BufferedWriter(new FileWriter( new File("src/main/java/server/data/inscription.txt")));
-            bw.write(enregistrement);
-
-            objectOutputStream.writeObject("inscription effectué avec succès");
-            bw.close();
-            objectOutputStream.close();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+    public void handleRegistration()  {
+        String enregistrement;
+            System.out.println("accès 1");
+            try {
+                enregistrement = (String) objectInputStream.readObject();
+                System.out.println("voici lenregis: "+enregistrement+ "taille: "+enregistrement.length());
+                BufferedWriter bw = new BufferedWriter(new FileWriter( new File("src/main/java/server/data/inscription.txt")));
+                bw.append(enregistrement);
+                bw.flush();
+                String [] tab = enregistrement.split("\t");
+                objectOutputStream.writeObject("Félicitation! Inscription réussie de "+ tab[3]+" au cours "+tab[1]);
+            }catch(IOException | ClassNotFoundException oe){
+                System.out.println("pas d'objet");
+            }
 
 
 
