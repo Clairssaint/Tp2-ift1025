@@ -1,12 +1,14 @@
 package server.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Course implements Serializable {
 
     private String name;
     private String code;
     private String session;
+    int nombreDeCours;
 
     public Course(String name, String code, String session) {
         this.name = name;
@@ -37,6 +39,16 @@ public class Course implements Serializable {
     public void setSession(String session) {
         this.session = session;
     }
+
+    public void setNombreDeCoursnombreDeCours(int nombre){
+        this.nombreDeCours = nombre;
+    }
+
+    public int getNombreDeCours() {
+        return nombreDeCours;
+    }
+
+
 
     @Override
     public String toString() {

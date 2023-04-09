@@ -6,10 +6,10 @@ public class RegistrationForm implements Serializable {
     private String prenom;
     private String nom;
     private String email;
-    private String matricule;
+    private int matricule;
     private Course course;
 
-    public RegistrationForm(String prenom, String nom, String email, String matricule, Course course) {
+    public RegistrationForm(String prenom, String nom, String email, int matricule, Course course) {
         this.prenom = prenom;
         this.nom = nom;
         this.email = email;
@@ -41,11 +41,11 @@ public class RegistrationForm implements Serializable {
         this.email = email;
     }
 
-    public String getMatricule() {
+    public int getMatricule() {
         return matricule;
     }
 
-    public void setMatricule(String matricule) {
+    public void setMatricule(int matricule) {
         this.matricule = matricule;
     }
 
