@@ -1,1 +1,1 @@
-Automne	IFT2255	12345678	Michalis	Famelis	mfamelis@iro.umontreal.ca
+Hiver	IFT2125	20195013	amadou	kone	amadou.kone@umontreal.ca

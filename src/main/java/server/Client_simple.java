@@ -104,10 +104,10 @@ public class Client_simple implements Serializable {
                         oos.writeObject("INSCRIRE "  );
                         oos.writeObject(enregistrement);
                         oos.flush();
-                        //System.out.println(enregistrement);
                         confirmation = (String) is.readObject();
                         System.out.println(confirmation);
                         is.close();
+                        oos.close();
                         break;
                     default:
                         System.out.println("commande inconnue");
@@ -122,29 +122,50 @@ public class Client_simple implements Serializable {
     }
     public static void inscriptionAuCours(){
 
-        String prenom, nom, email, matricule, codeCours;
+        String prenom, nom, email, codeCours;
+        int  matricule, compteur=0;
         System.out.print("Veuillez saisir votre prenom: ");
         prenom = scan.nextLine();
+
         System.out.print("Veuillez saisir votre nom: ");
         nom = scan.nextLine();
+
         System.out.print("Veuillez saisir votre email: ");
         email = scan.nextLine();
+        validateurDeCourriel(email);
+
         System.out.print("Veuillez saisir votre matricule: ");
-        matricule = scan.nextLine();
+        matricule = Integer.parseInt(scan.nextLine());
+        validateurDeMatricule(matricule);
+
         System.out.print("Veuillez saisir le code du cours: ");
         codeCours = scan.nextLine();
         for (int i = 0; i < temp; i++) {
             if (codeCours.equals(listDesCoursDeLaSession.get(i).getCode())) {
                 coursAAjouter = listDesCoursDeLaSession.get(i);
+                compteur++;
             }
+
+        }if(compteur==0){
+            throw new IllegalArgumentException("vous ne pouvez pas vous incrire a ce cours car il n'est pas offert pour cette session");
         }
         registrationForm = new RegistrationForm(prenom, nom, email, matricule, coursAAjouter);
         enregistrement = registrationForm.getCourse().getSession() +"\t"+ registrationForm.getCourse().getCode() +"\t"+ registrationForm.getMatricule() +"\t"+ registrationForm.getPrenom() +"\t"+ registrationForm.getNom()+"\t"+registrationForm.getEmail();
-        /**try {
-            os.writeObject(enregistrement);
-        }catch(IOException oe){
-            System.out.println("erreur lors de l'envoi de l'object");
-        }*/
+
+
+    }
+
+    public static void validateurDeCourriel (String email){
+        String validaeurEmail = ".+@.+\\.[a-z]+";
+        if(email.matches(validaeurEmail) != true){
+            throw new IllegalArgumentException("adresse email incorrect");
+        }
+    }
+    public static void validateurDeMatricule(int matricule){
+        String validateurMatricule = String.valueOf(matricule);
+        if(validateurMatricule.length()!=8){
+            throw new IllegalArgumentException("matricule invalide");
+        }
     }
 
 }
