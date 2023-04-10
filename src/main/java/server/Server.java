@@ -151,7 +151,7 @@ public class Server {
         try {
             String line;
             int temp=0;
-            BufferedReader br = new BufferedReader(new FileReader( new File("src/main/java/server/data/cours.txt")));
+            BufferedReader br = new BufferedReader(new FileReader( new File("cours.txt")));
             while( (line= br.readLine())!= null){
                 String [] tab = line.split("\t");
 
@@ -188,7 +188,7 @@ public class Server {
         String enregistrement;
             try {
                 enregistrement = (String) objectInputStream.readObject();
-                BufferedWriter bw = new BufferedWriter(new FileWriter( new File("src/main/java/server/data/inscription.txt")));
+                BufferedWriter bw = new BufferedWriter(new FileWriter( new File("inscription.txt")));
                 bw.append(enregistrement);
                 bw.flush();
                 String [] tab = enregistrement.split("\t");

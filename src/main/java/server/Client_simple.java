@@ -116,9 +116,9 @@ public class Client_simple implements Serializable {
             }
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("erreur lors de l'ouverture ou de l'ecriture du fichier");
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("classe non trouver");
         }
     }
     public static void inscriptionAuCours(){
