@@ -152,12 +152,10 @@ public class Server {
             String line;
             int temp=0;
             BufferedReader br = new BufferedReader(new FileReader( new File("src/main/java/server/data/cours.txt")));
-            System.out.println("lecture du fichier cours");
             while( (line= br.readLine())!= null){
                 String [] tab = line.split("\t");
 
                 Course course = new Course(tab[1], tab[0], tab[2]);
-                System.out.println("cours :"+course.getName());
                 listCourse.add(course);
                 if(course.getSession().equals(arg)){
                     listCoursSessionDemande.add(course);
@@ -168,7 +166,6 @@ public class Server {
             }
 
             for(int i=0; i < temp; i++){
-                System.out.println("envoie cours :"+listCoursSessionDemande.get(i).getName());
                 listCoursSessionDemande.get(i).setNombreDeCoursnombreDeCours(temp);
                 objectOutputStream.writeObject(listCoursSessionDemande.get(i));
             }
