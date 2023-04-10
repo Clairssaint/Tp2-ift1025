@@ -94,6 +94,7 @@ public class Client_simple implements Serializable {
                 switch (line){
                     case "1":
                         System.out.println("choix d'une autre session");
+                        main(new String[]{" "});
                         break;
                     case "2":
                         Socket cl = new Socket("127.0.0.1", 1337);
@@ -155,12 +156,21 @@ public class Client_simple implements Serializable {
 
     }
 
+    /**
+     * fonction qui recoit en parametre un courriel et vefirie si elle respect le formant string@domain
+     * @param email pour la quelle le format sera verifier
+     */
     public static void validateurDeCourriel (String email){
         String validaeurEmail = ".+@.+\\.[a-z]+";
         if(email.matches(validaeurEmail) != true){
             throw new IllegalArgumentException("adresse email incorrect");
         }
     }
+
+    /**
+     * fonction recupere la matricule, la convertie en string et verifi si elle contient 8 chiffres sinon lance une exception
+     * @param matricule pour la quelle on va verifier le format
+     */
     public static void validateurDeMatricule(int matricule){
         String validateurMatricule = String.valueOf(matricule);
         if(validateurMatricule.length()!=8){
