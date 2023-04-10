@@ -93,7 +93,6 @@ public class Client_simple implements Serializable {
             if(( line = scan.nextLine()) != null){
                 switch (line){
                     case "1":
-                        System.out.println("choix d'une autre session");
                         main(new String[]{" "});
                         break;
                     case "2":
@@ -133,11 +132,11 @@ public class Client_simple implements Serializable {
 
         System.out.print("Veuillez saisir votre email: ");
         email = scan.nextLine();
-        validateurDeCourriel(email);
+        valideurDeCourriel(email);
 
         System.out.print("Veuillez saisir votre matricule: ");
         matricule = Integer.parseInt(scan.nextLine());
-        validateurDeMatricule(matricule);
+        valideurDeMatricule(matricule);
 
         System.out.print("Veuillez saisir le code du cours: ");
         codeCours = scan.nextLine();
@@ -160,9 +159,9 @@ public class Client_simple implements Serializable {
      * fonction qui recoit en parametre un courriel et vefirie si elle respect le formant string@domain
      * @param email pour la quelle le format sera verifier
      */
-    public static void validateurDeCourriel (String email){
-        String validaeurEmail = ".+@.+\\.[a-z]+";
-        if(email.matches(validaeurEmail) != true){
+    public static void valideurDeCourriel (String email){
+        String valideurEmail = ".+@.+\\.[a-z]+";
+        if(email.matches(valideurEmail) != true){
             throw new IllegalArgumentException("adresse email incorrect");
         }
     }
@@ -171,7 +170,7 @@ public class Client_simple implements Serializable {
      * fonction recupere la matricule, la convertie en string et verifi si elle contient 8 chiffres sinon lance une exception
      * @param matricule pour la quelle on va verifier le format
      */
-    public static void validateurDeMatricule(int matricule){
+    public static void valideurDeMatricule(int matricule){
         String validateurMatricule = String.valueOf(matricule);
         if(validateurMatricule.length()!=8){
             throw new IllegalArgumentException("matricule invalide");
