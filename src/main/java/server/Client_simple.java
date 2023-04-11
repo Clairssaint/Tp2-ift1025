@@ -93,7 +93,6 @@ public class Client_simple implements Serializable {
             if(( line = scan.nextLine()) != null){
                 switch (line){
                     case "1":
-                        System.out.println("choix d'une autre session");
                         main(new String[]{" "});
                         break;
                     case "2":
@@ -116,9 +115,9 @@ public class Client_simple implements Serializable {
             }
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("erreur lors de l'ouverture ou de l'ecriture du fichier");
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println("classe non trouver");
         }
     }
     public static void inscriptionAuCours(){
@@ -133,11 +132,17 @@ public class Client_simple implements Serializable {
 
         System.out.print("Veuillez saisir votre email: ");
         email = scan.nextLine();
-        validateurDeCourriel(email);
+        while(valideurDeCourriel(email)!=true){
+            System.out.print("veillez entrer un courriel valide: ");
+            email= scan.nextLine();
+        }
 
         System.out.print("Veuillez saisir votre matricule: ");
         matricule = Integer.parseInt(scan.nextLine());
-        validateurDeMatricule(matricule);
+        while(valideurDeMatricule(matricule)!=true){
+            System.out.print("veillez entrer une matricule valide: ");
+            matricule = Integer.parseInt(scan.nextLine());
+        }
 
         System.out.print("Veuillez saisir le code du cours: ");
         codeCours = scan.nextLine();
@@ -160,22 +165,25 @@ public class Client_simple implements Serializable {
      * fonction qui recoit en parametre un courriel et vefirie si elle respect le formant string@domain
      * @param email pour la quelle le format sera verifier
      */
-    public static void validateurDeCourriel (String email){
-        String validaeurEmail = ".+@.+\\.[a-z]+";
-        if(email.matches(validaeurEmail) != true){
-            throw new IllegalArgumentException("adresse email incorrect");
-        }
+    public static Boolean valideurDeCourriel (String email){
+        String valideurEmail = ".+@.+\\.[a-z]+";
+        return email.matches(valideurEmail);
+
     }
 
     /**
      * fonction recupere la matricule, la convertie en string et verifi si elle contient 8 chiffres sinon lance une exception
      * @param matricule pour la quelle on va verifier le format
      */
-    public static void validateurDeMatricule(int matricule){
+    public static Boolean valideurDeMatricule(int matricule){
+        boolean val;
         String validateurMatricule = String.valueOf(matricule);
         if(validateurMatricule.length()!=8){
-            throw new IllegalArgumentException("matricule invalide");
+            val =false;
+        }else{
+            val=true;
         }
+        return val;
     }
 
 }
