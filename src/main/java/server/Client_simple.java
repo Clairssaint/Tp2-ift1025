@@ -133,14 +133,14 @@ public class Client_simple implements Serializable {
         System.out.print("Veuillez saisir votre email: ");
         email = scan.nextLine();
         while(valideurDeCourriel(email)!=true){
-            System.out.print("veillez entrer un courriel valide: ");
+            System.out.print("veuillez entrer un courriel valide: ");
             email= scan.nextLine();
         }
 
         System.out.print("Veuillez saisir votre matricule: ");
         matricule = Integer.parseInt(scan.nextLine());
         while(valideurDeMatricule(matricule)!=true){
-            System.out.print("veillez entrer une matricule valide: ");
+            System.out.print("veuillez entrer une matricule valide: ");
             matricule = Integer.parseInt(scan.nextLine());
         }
 
