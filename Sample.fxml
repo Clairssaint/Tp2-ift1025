@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane prefHeight="400.0" prefWidth="315.0">
+         <top>
+            <Label alignment="BOTTOM_CENTER" prefHeight="28.0" prefWidth="234.0" text="Liste des cours" textAlignment="JUSTIFY" BorderPane.alignment="CENTER">
+               <graphic>
+                  <Label />
+               </graphic>
+               <BorderPane.margin>
+                  <Insets bottom="10.0" left="-25.0" top="20.0" />
+               </BorderPane.margin>
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+         </top>
+         <left>
+            <TableView prefHeight="271.0" prefWidth="256.0" BorderPane.alignment="CENTER_RIGHT">
+              <columns>
+                <TableColumn prefWidth="134.0" text="Code" />
+                <TableColumn prefWidth="148.0" text="Cours" />
+              </columns>
+               <BorderPane.margin>
+                  <Insets left="10.0" />
+               </BorderPane.margin>
+            </TableView>
+         </left>
+         <HBox.margin>
+            <Insets />
+         </HBox.margin>
+         <bottom>
+            <HBox prefHeight="51.0" prefWidth="254.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="15.0" />
+               </BorderPane.margin>
+               <children>
+                  <ComboBox prefHeight="25.0" prefWidth="98.0">
+                     <HBox.margin>
+                        <Insets left="25.0" top="15.0" />
+                     </HBox.margin>
+                  </ComboBox>
+                  <Button mnemonicParsing="false" text="charger">
+                     <HBox.margin>
+                        <Insets left="50.0" top="15.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+      <VBox prefHeight="400.0" prefWidth="318.0" spacing="14.0">
+         <children>
+            <Label prefHeight="28.0" prefWidth="201.0" text="Formulaire d'inscription">
+               <VBox.margin>
+                  <Insets bottom="25.0" left="25.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Label text="Prenom">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+            <Label text="Nom" />
+            <Label text="Email" />
+            <Label text="Matricule" />
+            <VBox prefHeight="187.0" prefWidth="167.0" spacing="8.0">
+               <VBox.margin>
+                  <Insets bottom="80.0" left="70.0" top="-140.0" />
+               </VBox.margin>
+               <children>
+                  <TextField />
+                  <TextField />
+                  <TextField />
+                  <PasswordField prefHeight="25.0" prefWidth="142.0" />
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" text="envoyer">
+                     <VBox.margin>
+                        <Insets left="25.0" top="15.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets right="50.0" top="10.0" />
+               </padding>
+            </VBox>
+         </children>
+         <padding>
+            <Insets left="30.0" top="20.0" />
+         </padding>
+      </VBox>
+   </children>
+</HBox>
